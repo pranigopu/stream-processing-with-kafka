@@ -6,22 +6,14 @@
 
 **Contents**:
 
-- [Requirements](#requirements)
-- [Setting up Kafka cluster](#setting-up-kafka-cluster)
-- [After installation](#after-installation)
+1. [Setting Up](./docs/setting-up.md)
+2. [Installation Verification](./docs/installation-verification.md)
+3. [](./docs/)
 
 ---
 
+# 
 
-# Requirements
+---
 
-# Setting up Kafka cluster
-- Clone the repository
-- Navigate to `src/infra` within this repository
-- Then, run the following:
-
-```
-docker-compose -f docker-compose.yaml up -d
-```
-
-# After installation
+> [Next: Verification](./verification.md)

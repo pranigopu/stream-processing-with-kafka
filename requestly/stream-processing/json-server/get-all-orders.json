@@ -1,0 +1,26 @@
+{
+  "name": "get-all-orders",
+  "request": {
+    "type": "http",
+    "url": "http://localhost:3000/orders",
+    "scripts": {
+      "preRequest": "",
+      "postResponse": ""
+    },
+    "method": "GET",
+    "queryParams": [],
+    "headers": [],
+    "body": null,
+    "bodyContainer": {
+      "text": "",
+      "form": [],
+      "multipartForm": []
+    },
+    "contentType": "text/plain",
+    "auth": {
+      "currentAuthType": "INHERIT",
+      "authConfigStore": {}
+    },
+    "pathVariables": []
+  }
+}

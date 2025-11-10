@@ -1,0 +1,33 @@
+{
+  "name": "get-order-with-order-id",
+  "request": {
+    "type": "http",
+    "url": "http://localhost:3000/orders",
+    "scripts": {
+      "preRequest": "",
+      "postResponse": ""
+    },
+    "method": "GET",
+    "queryParams": [
+      {
+        "id": 0.8204564036148985,
+        "key": "order_id",
+        "value": "e1f8a678-9012-3456-7890-12345678cdef",
+        "isEnabled": true
+      }
+    ],
+    "headers": [],
+    "body": null,
+    "bodyContainer": {
+      "text": "",
+      "form": [],
+      "multipartForm": []
+    },
+    "contentType": "text/plain",
+    "auth": {
+      "currentAuthType": "INHERIT",
+      "authConfigStore": {}
+    },
+    "pathVariables": []
+  }
+}

@@ -1,3 +1,5 @@
+> [<< Home](../README.md)
+
 <h1>VERIFICATION</h1>
 
 ---
@@ -33,4 +35,4 @@ Expected outputs:
 
 ---
 
-> [Next: Publish Topics](./publish-topics.md)
+> [Next: Publish Topics for Testing](./publish-topics-for-testing.md)

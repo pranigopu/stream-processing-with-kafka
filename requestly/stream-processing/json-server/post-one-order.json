@@ -1,0 +1,26 @@
+{
+  "name": "post-one-order",
+  "request": {
+    "type": "http",
+    "url": "http://localhost:3000/orders",
+    "scripts": {
+      "preRequest": "",
+      "postResponse": ""
+    },
+    "method": "POST",
+    "queryParams": [],
+    "headers": [],
+    "body": "{\n  \"order_id\": \"6abe7344-447b-447b-bc82-80cddc9d6ad6\",\n  \"product_name\": \"Autonomous Mobile Robot - WASP\",\n  \"quantity\": 2,\n  \"price\": 200,\n  \"order_date\": \"2025-11-09\",\n  \"id\": \"64b7\"\n}\n",
+    "bodyContainer": {
+      "text": "{\n  \"order_id\": \"6abe7344-447b-447b-bc82-80cddc9d6ad6\",\n  \"product_name\": \"Autonomous Mobile Robot - WASP\",\n  \"quantity\": 2,\n  \"price\": 200,\n  \"order_date\": \"2025-11-09\",\n  \"id\": \"64b7\"\n}\n",
+      "form": [],
+      "multipartForm": []
+    },
+    "contentType": "application/json",
+    "auth": {
+      "currentAuthType": "INHERIT",
+      "authConfigStore": {}
+    },
+    "pathVariables": []
+  }
+}

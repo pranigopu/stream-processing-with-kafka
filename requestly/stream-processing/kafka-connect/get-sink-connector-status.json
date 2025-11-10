@@ -1,0 +1,26 @@
+{
+  "name": "get-sink-connector-status",
+  "request": {
+    "type": "http",
+    "url": "http://localhost:8083/connectors/postgres-sink/status",
+    "scripts": {
+      "preRequest": "",
+      "postResponse": ""
+    },
+    "method": "GET",
+    "queryParams": [],
+    "headers": [],
+    "body": null,
+    "bodyContainer": {
+      "text": "",
+      "form": [],
+      "multipartForm": []
+    },
+    "contentType": "text/plain",
+    "auth": {
+      "currentAuthType": "INHERIT",
+      "authConfigStore": {}
+    },
+    "pathVariables": []
+  }
+}
