@@ -1,4 +1,4 @@
-> [Previous: Setting Up](./setting-up.md) :: [Next: Publish Topics for Testing](./publish-topics-for-testing.md)
+> [Previous: Setting Up](./setting-up.md)
 
 <h1>INSTALLATION VERIFICATION</h1>
 

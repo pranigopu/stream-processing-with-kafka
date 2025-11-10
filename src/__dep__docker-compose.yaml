@@ -298,6 +298,8 @@ services:
       - |
         echo "Installing JDBC connector..."
         confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:latest
+        echo "Installing HTTP connector..."
+        confluent-hub install --no-prompt confluentinc/kafka-connect-http-source:latest
         echo "Starting Kafka Connect..."
         /etc/confluent/docker/run &
         wait

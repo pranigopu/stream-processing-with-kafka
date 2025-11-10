@@ -1,0 +1,21 @@
+{
+  "name": "Untitled request",
+  "request": {
+    "type": "http",
+    "url": "http://localhost:8083/connectors/http-source-orders/status",
+    "scripts": {
+      "preRequest": "",
+      "postResponse": ""
+    },
+    "method": "GET",
+    "queryParams": [],
+    "headers": [],
+    "body": null,
+    "bodyContainer": {},
+    "contentType": "text/plain",
+    "auth": {
+      "currentAuthType": "INHERIT",
+      "authConfigStore": {}
+    }
+  }
+}

@@ -8,4 +8,3 @@
 
 1. [Setting Up](./docs/setting-up.md)
 2. [Installation Verification](./docs/installation-verification.md)
-3. [Publish Topics for Testing](./docs/publish-topics-for-testing.md)
