@@ -1,4 +1,4 @@
-> [Previous: Setting Up](./setting-up.md)
+> [Previous: Setting Up](./setting-up.md) :: [Next: Publish Topics for Testing](./publish-topics-for-testing.md)
 
 <h1>INSTALLATION VERIFICATION</h1>
 
@@ -32,7 +32,3 @@ Expected outputs:
 ![](./resources/kafka-ui-after-deployment--consumers.png)
 
 ![](./resources/kafka-ui-after-deployment--brokers.png)
-
----
-
-> [Next: Publish Topics for Testing](./publish-topics-for-testing.md)
