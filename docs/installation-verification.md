@@ -1,5 +1,3 @@
-> [Previous: Kafka Connector Configurations](./kafka-connector-configurations.md)
-
 <h1>INSTALLATION VERIFICATION</h1>
 
 ---

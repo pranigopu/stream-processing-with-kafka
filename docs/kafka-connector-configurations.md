@@ -1,5 +1,3 @@
-> [Previous: Setting Up](./setting-up.md) :: [Next: Installation Verification](./installation-verification.md)
-
 <h1>KAFKA CONNECTOR CONFIGURATIONS</h1>
 
 ---
