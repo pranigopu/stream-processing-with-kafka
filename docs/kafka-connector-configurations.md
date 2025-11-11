@@ -44,9 +44,19 @@ Explanation for certain parameters:
     - Time interval between 2 requests to the URL
     - Prevents the source connector from ingesting the same data repeatedly
     - The given interval is in milliseconds; 86400000 ms = 24 hours
-- `"key.converter": "org.apache.kafka.connect.json.JsonConverter"`
-    - Converts ingested data into JSON format
-
+- `"key.converter": "org.apache.kafka.connect.json.JsonConverter"`:
+    - Converts ingested data keys into JSON format
+    - Ensures message keys are appropriately parsed for the `orders` Kafka topic
+-  `"value.converter": "org.apache.kafka.connect.json.JsonConverter"`:
+    - Converts ingested data values into JSON format
+    - Ensures message values are appropriately parsed for the `orders` Kafka topic
+- `"key.converter.schemas.enable": "false"` and `"value.converter.schemas.enable": "false"`:
+    - Ensure no schemas are expected by the connector
+    - Hence, it shall simply ingest raw data as is
+-  `"confluent.topic.bootstrap.servers": "kafka:29092"`:
+      -  Indicates the Docker bridge address and port on which the Kafka broker is exposed
+      -  Ensures communications are routed to the appropriate broker
+ 
 > **References**:
 >
 > - [*Configuration Reference for HTTP Source Connector for Confluent Platform*, **docs.confluent.io**](https://docs.confluent.io/kafka-connectors/http-source/current/configuration.html)
@@ -78,3 +88,35 @@ Explanation for certain parameters:
   }
 }
 ```
+
+Explanation for certain parameters:
+
+- `"value.converter.schemas.enable": "true"`:
+    - Ensures
+- `"auto.create": "true"`:
+    - Automatically creates a PostgreSQL database table if not existing
+    - Avoids issues when the required table has been dropped
+- `"insert.mode": "insert`:
+    - Specifies that data must be inserted into the table
+    - Essentially specifies data entry via insert queries
+- `"pk.mode": "record_key"` and `"pk.fields": "order_id"`:
+    - Primary key settings
+    - Note that the primary key values have to be unique in the data source
+
+Observations influencing configuration:
+
+- This connector was initially configured with `delete.enabled=false` and '`pk.mode=none`
+- These configurations require:
+    - Records with a non-null Struct value and non-null Struct schema
+    - As an aside, this means the schema has to be defined for each Kafka message in desired topics
+- However, `delete.enabled=true` only works for `pk.mode=record_key`
+- The above mode requires the configuration of `pk.fields`
+- Now, note that:
+    - Messages without schema are read as `class java.util.HashMap`
+    - However, to identify the `pk.field`, we need `org.apache.kafka.connect.data.Struct`
+    - Hence, schema was added for messages in `enriched_orders` via [`order-validator` service](./setting-up-order-validator.md)
+- Either way, it proved necessary to define the schema for Kafka messages in `enriched_orders`
+
+> **References**:
+>
+> - [*PostgreSQL Sink (JDBC) Connector for Confluent Cloud*, **docs.confluent.io/cloud/current**](https://docs.confluent.io/cloud/current/connectors/cc-postgresql-sink.html)

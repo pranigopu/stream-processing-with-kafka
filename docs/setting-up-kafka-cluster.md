@@ -45,7 +45,9 @@ Kafka uses message brokers for stream processing, but stream processing also inc
     - Stores messages
     - Serves messages
 - Topic: A logically defined and uniquely identified message queue
-- Partition: 
+- Partition: A particular division of a topic queue
+    - Generally, messages with the same key are grouped in the same partition
+    - Partitions help organising messages in a topic and potentially make consumption efficient
 
 ## Moving from ZooKeeper to KRaft
 ### Basics
@@ -169,7 +171,55 @@ service:
 ```yaml
 service:
   kafka-connect:
-    image: confluentinc/cp-kafka-connect:7.8.0
+    build:
+      context: .
+      dockerfile: Dockerfile.connect
+    container_name: kafka-connect
+    depends_on:
+      kafka:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      kafka-init:
+        condition: service_completed_successfully
+    environment:
+      CONNECT_BOOTSTRAP_SERVERS: kafka:29092
+      CONNECT_REST_PORT: 8083
+      CONNECT_GROUP_ID: "quickstart"
+      CONNECT_CONFIG_STORAGE_TOPIC: "quickstart-config"
+      CONNECT_OFFSET_STORAGE_TOPIC: "quickstart-offset"
+      CONNECT_STATUS_STORAGE_TOPIC: "quickstart-status"
+      CONNECT_KEY_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
+      CONNECT_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
+      CONNECT_REST_ADVERTISED_HOST_NAME: "kafka-connect"
+      CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
+    ports:
+      - "8083:8083"
+    networks:
+      - kafka-network
+```
+
+Referenced Dockerfile is available at: [`src/Dockerfile.connect`](../src/Dockerfile.connect)
+
+---
+
+**NOTE: Use of Kafka Connect 7.5.0**:
+
+
+
+---
+
+**NOTE: Use of Docker file**:
+
+Earlier, the following Docker Compose configuration was used:
+
+```yaml
+service:
+  kafka-connect:
+    image: confluentinc/cp-kafka-connect:7.5.0
     container_name: kafka-connect
     depends_on:
       kafka:
@@ -200,12 +250,16 @@ service:
       - bash
       - -c
       - |
+        echo "Installing HTTP source connector..."
+        confluent-hub install --no-prompt confluentinc/kafka-connect-http-source:latest
         echo "Installing JDBC connector..."
         confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:latest
         echo "Starting Kafka Connect..."
         /etc/confluent/docker/run &
         wait
 ```
+
+However, this led to silent failures
 
 ## Docker Compose for Kafka initialiser (init-container pattern)
 ```yaml
@@ -254,7 +308,6 @@ service:
           quantity NUMERIC(10, 2),
           price NUMERIC(10, 2),
           order_date VARCHAR(50),
-          id VARCHAR(50),
           total NUMERIC(10, 2),
           processed_at NUMERIC(20, 6),
           validator_version VARCHAR(50),
