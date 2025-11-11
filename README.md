@@ -6,10 +6,6 @@
 
 **Contents**:
 
-<<<<<<< Updated upstream
-1. [Setting Up](./docs/setting-up.md)
-2. [Installation Verification](./docs/installation-verification.md)
-=======
 - [Architecture](#architecture)
 - [Main project files](#main-project-files)
 - [How to run the project](#how-to-run-the-project)
@@ -151,4 +147,3 @@ SELECT * FROM enriched_orders;
 You should be seeing something like this:
 
 ![](./docs/resources/postgres-data-demo.png)
->>>>>>> Stashed changes
