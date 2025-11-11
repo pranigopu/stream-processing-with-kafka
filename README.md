@@ -19,8 +19,8 @@
 
 Data-access/UI ports (localhost):
 
-- 8080: Kafka UI (access UI via the endpoint [http://localhost:8080](http://localhost:8080))
-- 3000: JSON Server (access data via the endpoint [http://localhost:3000/orders](http://localhost:3000/orders))
+- 8080: Kafka UI (once running, access via the endpoint [http://localhost:8080](http://localhost:8080))
+- 3000: JSON Server (once running, access via the endpoint [http://localhost:3000/orders](http://localhost:3000/orders))
 
 # Main project files
 - [`docker-compose` file to set up the environment](./src/docker-compose.yaml)
