@@ -298,7 +298,48 @@ service:
         wait
 ```
 
-However, this seemed to silent failures
+However, this seemed to produce silent failures in installation, that led to the following issue:
+
+*HTTP source connector configuration*
+
+```
+curl --request POST \
+  --url http://localhost:8083/connectors/ \
+  --header 'Content-Type: application/json' \
+  --data '
+{
+  "name": "http-source",
+  "config": {
+    "connector.class": "io.confluent.connect.http.HttpSourceConnector",
+    "topic.name.pattern": "orders",
+    "url": "http://data-source:3000/orders",
+    "tasks.max": "1",
+    "http.offset.mode": "SIMPLE_INCREMENTING",
+    "http.initial.offset": "0",
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "confluent.topic.bootstrap.servers": "kafka:29092",
+    "confluent.license": "",
+    "confluent.topic.replication.factor": "1"
+  }
+}'
+```
+
+*Status check request*
+
+```
+curl --request GET \
+  --url http://localhost:8083/connectors/http-source/status \
+  --header 'Content-Type: application/json'
+```
+
+*Error (initial portion)*
+
+```
+{"error_code": 500, "message": "Failed to find any class that implements Connector and which name matches io.confluent.connect.http.HttpSourceConnector, available connectors are: ...
+```
+
+The error shows that the HTTP Source connector was not actually installed or Kafka Connect could not find it. The connector installation in the `command` section failed or the plugin path was not configured correctly. Hence, this seems like a runtime issue, and pre-installing the connector in the image was a potential solution to eliminate runtime installation issues. Hence, [`src/Dockerfile.connect`](../src/Dockerfile.connect) was used and the Docker Compose file was changed accordingly, and this resolved this issue.
 
 ## Docker Compose for Kafka initialiser (init-container pattern)
 ```yaml
