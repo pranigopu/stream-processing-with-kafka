@@ -81,11 +81,11 @@ def create_consumer() -> KafkaConsumer:
     return KafkaConsumer(
         ORDERS_TOPIC,
         bootstrap_servers=BOOTSTRAP_SERVERS,
-        group_id=CONSUMER_GROUP,  # Consumer group for offset management
+        group_id=CONSUMER_GROUP, # Consumer group for offset management
         auto_offset_reset="earliest",
         enable_auto_commit=False,  # Manual commit for idempotency
         value_deserializer=safe_deserializer,
-        max_poll_records=10,  # Process in small batches
+        max_poll_records=10, # Process in small batches
         session_timeout_ms=30000,  # 30 seconds
         heartbeat_interval_ms=10000  # 10 seconds
     )
