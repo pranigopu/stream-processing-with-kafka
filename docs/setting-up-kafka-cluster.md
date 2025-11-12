@@ -6,7 +6,7 @@
 
 - [Kafka architecture](#kafka-architecture)
   - [Stream processing vs. message broker](#stream-processing-vs-message-broker)
-  - [Cluster, broker, topics, partition and messages](#cluster-broker-topics-partition-and-messages)
+  - [Cluster, broker, partition, topics and messages](#cluster-broker-partition-topics-and-messages)
   - [Moving from ZooKeeper to KRaft](#moving-from-zookeeper-to-kraft)
     - [Basics](#basics)
     - [KRaft cluster](#kraft-cluster)
@@ -41,16 +41,20 @@ Kafka uses message brokers for stream processing, but stream processing also inc
 
 *Kafka does not delete messages after processing; the retention of messages is configurable.*
 
-## Cluster, broker, topics, partition and messages
+## Cluster, broker, partition, topics and messages
 - Cluster: Allocated compute and memory for stream processing <br> **NOTE**: *A cluster can have one or more brokers*
 - Broker: Server within a Kafka cluster that handles messages (data records) for topics:
     - Receives messages
     - Stores messages
     - Serves messages
+- Partition: A particular area of storage
 - Topic: A logically defined and uniquely identified message queue
-- Partition: A particular division of a topic queue
-    - Generally, messages with the same key are grouped in the same partition
-    - Partitions help organising messages in a topic and potentially make consumption efficient
+    - Topics can be associated with one or more partitions
+    - Messages with the same key (also called partition key) are grouped in the same partition
+
+Topics organise events, partitions store events.
+
+> **Additional reference**: [*Kafka System Design Deep Dive w/ a Ex-Meta Staff Engineer* by Hello Interview - SWE Interview Preparation, **www.youtube.com**](https://www.youtube.com/watch?v=DU8o-OTeoCc)
 
 ## Moving from ZooKeeper to KRaft
 ### Basics
