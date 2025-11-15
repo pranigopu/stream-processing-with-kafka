@@ -255,7 +255,7 @@ The response included:
 `java.lang.NoSuchMethodError` indicated a version compatibility issue, which is why I downgraded the Kafka Connect version to 7.5.0 from whatever was the latest version. This led to another issue, which is discussed in the next section.
 
 #### Use of Docker file instead of in-line commands within Docker Compose
-**NOTE**: *The following was observed with Kafka Connect 7.5.0.*
+**NOTE**: *The following was observed after switching to Kafka Connect 7.5.0.*
 
 Earlier, the following Docker Compose configuration was used:
 
@@ -343,7 +343,7 @@ curl --request GET \
 {"error_code": 500, "message": "Failed to find any class that implements Connector and which name matches io.confluent.connect.http.HttpSourceConnector, available connectors are: ...
 ```
 
-The error shows that the HTTP Source connector was not actually installed or Kafka Connect could not find it. The connector installation in the `command` section failed or the plugin path was not configured correctly. Hence, this seems like a runtime issue, and pre-installing the connector in the image was a potential solution to eliminate runtime installation issues. Hence, [`src/Dockerfile.connect`](../src/Dockerfile.connect) was used and the Docker Compose file was changed accordingly, and this resolved this issue.
+The error shows that the HTTP Source connector was not actually installed in the connector with Kafka Connect, or Kafka Connect could not find it. The connector installation in the `command` section failed or the plugin path was not configured correctly. Hence, this seems like a runtime issue, and pre-installing the connector in the image was a potential solution to eliminate runtime installation issues. Hence, [`src/Dockerfile.connect`](../src/Dockerfile.connect) was used and the Docker Compose file was changed accordingly, and this resolved this issue.
 
 ## Docker Compose for Kafka initialiser (init-container pattern)
 ```yaml
